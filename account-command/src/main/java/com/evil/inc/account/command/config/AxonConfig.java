@@ -1,18 +1,18 @@
-package com.evil.inc.account.common.config;
+package com.evil.inc.account.command.config;
 
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
-import org.axonframework.eventhandling.tokenstore.TokenStore;
+import org.axonframework.eventhandling.EventMessage;
 import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
 import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.axonframework.extensions.mongo.DefaultMongoTemplate;
-import org.axonframework.extensions.mongo.MongoTemplate;
 import org.axonframework.extensions.mongo.eventsourcing.eventstore.MongoEventStorageEngine;
 import org.axonframework.extensions.mongo.eventsourcing.eventstore.MongoFactory;
 import org.axonframework.extensions.mongo.eventsourcing.eventstore.MongoSettingsFactory;
-import org.axonframework.extensions.mongo.eventsourcing.tokenstore.MongoTokenStore;
+import org.axonframework.monitoring.MessageMonitor;
 import org.axonframework.serialization.Serializer;
+import org.axonframework.serialization.json.JacksonSerializer;
 import org.axonframework.spring.config.AxonConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -27,8 +27,6 @@ public class AxonConfig {
     private String mongoHost;
     @Value("${spring.data.mongodb.port}")
     private int mongoPort;
-    @Value("${spring.data.mongodb.database}")
-    private String mongoDatabase;
 
     @Bean
     public MongoClient mongoClient() {
@@ -40,32 +38,25 @@ public class AxonConfig {
     }
 
     @Bean
-    public MongoTemplate mongoTemplate() {
-        return DefaultMongoTemplate.builder()
-                .mongoDatabase(mongoClient(), mongoDatabase)
-                .build();
-    }
-
-    @Bean
-    public TokenStore tokenStore(Serializer serializer) {
-        return MongoTokenStore.builder()
-                .mongoTemplate(mongoTemplate())
-                .serializer(serializer)
-                .build();
+    public Serializer eventSerializer() {
+        return JacksonSerializer.defaultSerializer();
     }
 
     @Bean
     public EventStorageEngine eventStorageEngine(MongoClient mongoClient) {
         return MongoEventStorageEngine.builder()
+                .eventSerializer(eventSerializer())
+                .snapshotSerializer(eventSerializer())
                 .mongoTemplate(DefaultMongoTemplate.builder().mongoDatabase(mongoClient).build())
                 .build();
     }
 
     @Bean
-    public EmbeddedEventStore eventStore(EventStorageEngine eventStorageEngine, AxonConfiguration axonConfiguration){
+    public EmbeddedEventStore eventStore(EventStorageEngine eventStorageEngine, AxonConfiguration configuration){
+        final MessageMonitor<? super EventMessage<?>> eventStore = configuration.messageMonitor(EventStore.class, "eventStore");
         return EmbeddedEventStore.builder()
                 .storageEngine(eventStorageEngine)
-                .messageMonitor(axonConfiguration.messageMonitor(EventStore.class, "eventStore"))
+                .messageMonitor(eventStore)
                 .build();
     }
 }

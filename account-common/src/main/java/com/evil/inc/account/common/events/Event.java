@@ -16,8 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public abstract class Event {
     private String id;
-    private long version;
-    private LocalDateTime systemCaptureDateTime = LocalDateTime.now();
+    private final LocalDateTime systemCaptureDateTime = LocalDateTime.now();
 
     public String getType() {
         return getClass().getSimpleName();
