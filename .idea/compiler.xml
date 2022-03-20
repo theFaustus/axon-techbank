@@ -8,8 +8,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="account-command" />
+        <module name="api-gateway" />
         <module name="account-common" />
         <module name="account-query" />
+        <module name="service-discovery" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -21,7 +23,9 @@
       <module name="account-command" options="-parameters" />
       <module name="account-common" options="-parameters" />
       <module name="account-query" options="-parameters" />
+      <module name="api-gateway" options="-parameters" />
       <module name="cqrs.core" options="-parameters" />
+      <module name="service-discovery" options="-parameters" />
     </option>
   </component>
 </project>

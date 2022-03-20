@@ -1,0 +1,52 @@
+POST http://localhost:8282/api/v1/accounts
+Content-Type: application/json
+
+{
+  "accountHolder": "Bob Dylan",
+  "accountType": "SAVINGS",
+  "openingBalance": 50.0
+}
+
+###
+
+POST http://localhost:8282/api/v1/accounts/deposit
+Content-Type: application/json
+
+{
+  "id": "390e444f-4854-4581-9c13-86cdb27f433b",
+  "amount": 25.0
+}
+
+###
+
+POST http://localhost:8282/api/v1/accounts/withdraw
+Content-Type: application/json
+
+{
+  "id": "390e444f-4854-4581-9c13-86cdb27f433b",
+  "amount": 45.0
+}
+
+###
+
+DELETE http://localhost:8282/api/v1/accounts
+Content-Type: application/json
+
+{
+  "id": "feb74b46-f7d3-4286-bb43-6e26917bf477"
+}
+
+###
+
+GET http://localhost:8282/api/v1/query-accounts
+Content-Type: application/json
+
+###
+
+GET http://localhost:8282/api/v1/query-accounts/e94246b1-4945-4ddd-aaa3-e93dd38fff17
+Content-Type: application/json
+
+###
+
+GET http://localhost:8282/api/v1/query-accounts?accountHolder=Bob Dylan
+Content-Type: application/json

@@ -38,15 +38,15 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:5001/api/v1/accounts
+GET http://localhost:5001/api/v1/query-accounts
 Content-Type: application/json
 
 ###
 
-GET http://localhost:5001/api/v1/accounts/e94246b1-4945-4ddd-aaa3-e93dd38fff17
+GET http://localhost:5001/api/v1/query-accounts/e94246b1-4945-4ddd-aaa3-e93dd38fff17
 Content-Type: application/json
 
 ###
 
-GET http://localhost:5001/api/v1/accounts?accountHolder=Bob Dylan
+GET http://localhost:5001/api/v1/query-accounts?accountHolder=Bob Dylan
 Content-Type: application/json

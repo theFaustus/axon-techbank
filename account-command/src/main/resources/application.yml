@@ -1,0 +1,23 @@
+server:
+  port: 5000
+
+spring:
+  application:
+    name: account-command-service # current service name used for eureka registration
+  data:
+    mongodb:
+      port: 27017
+      host: localhost
+      database: axon-techbank-account-command
+
+eureka:
+  instance:
+    prefer-ip-address: true # registers the service ip rather than the server name
+  client:
+    register-with-eureka: true # register him self at eureka
+    fetch-registry: true # pull down a local copy of the registries
+    service-url:
+      defaultZone: http://localhost:8761/eureka # discovery service location
+
+
+

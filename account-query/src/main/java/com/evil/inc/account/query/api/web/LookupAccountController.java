@@ -20,7 +20,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/accounts")
+@RequestMapping("/api/v1/query-accounts")
 public class LookupAccountController {
 
     private final QueryGateway queryGateway;
