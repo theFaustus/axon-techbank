@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class WithdrawFundsCommand extends Command {
-    private final double amount;
+    private double amount;
 }

@@ -1,10 +1,8 @@
-package com.evil.inc.account.query.api.dto;
+package com.evil.inc.account.query.api.web.dto;
 
-import com.evil.inc.account.common.dto.Response;
 import com.evil.inc.account.query.domain.BankAccount;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
@@ -12,8 +10,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class AccountResponse extends Response {
+public class AccountResponse {
     private String id;
     private String accountHolder;
     private String accountType;

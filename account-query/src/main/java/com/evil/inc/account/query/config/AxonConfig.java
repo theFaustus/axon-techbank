@@ -1,4 +1,4 @@
-package com.evil.inc.account.command.config;
+package com.evil.inc.account.query.config;
 
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
@@ -11,8 +11,6 @@ import org.axonframework.extensions.mongo.eventsourcing.eventstore.MongoEventSto
 import org.axonframework.extensions.mongo.eventsourcing.eventstore.MongoFactory;
 import org.axonframework.extensions.mongo.eventsourcing.eventstore.MongoSettingsFactory;
 import org.axonframework.monitoring.MessageMonitor;
-import org.axonframework.serialization.Serializer;
-import org.axonframework.serialization.json.JacksonSerializer;
 import org.axonframework.spring.config.AxonConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

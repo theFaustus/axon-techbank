@@ -13,7 +13,7 @@ POST http://localhost:5000/api/v1/accounts/deposit
 Content-Type: application/json
 
 {
-  "aggregateId": "ce9d725e-88ed-43c9-a2d9-ed0169a0302f",
+  "id": "e94246b1-4945-4ddd-aaa3-e93dd38fff17",
   "amount": 25.0
 }
 
@@ -23,7 +23,7 @@ POST http://localhost:5000/api/v1/accounts/withdraw
 Content-Type: application/json
 
 {
-  "aggregateId": "ce9d725e-88ed-43c9-a2d9-ed0169a0302f",
+  "id": "ce9d725e-88ed-43c9-a2d9-ed0169a0302f",
   "amount": 45.0
 }
 
@@ -33,7 +33,7 @@ DELETE http://localhost:5000/api/v1/accounts
 Content-Type: application/json
 
 {
-  "aggregateId": "feb74b46-f7d3-4286-bb43-6e26917bf477"
+  "id": "feb74b46-f7d3-4286-bb43-6e26917bf477"
 }
 
 ###
@@ -43,7 +43,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:5001/api/v1/accounts/4ce93188-e879-4812-a374-7f6280ff4214
+GET http://localhost:5001/api/v1/accounts/e94246b1-4945-4ddd-aaa3-e93dd38fff17
 Content-Type: application/json
 
 ###

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class RestoreDbCommand extends Command {
 }

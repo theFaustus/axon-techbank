@@ -1,6 +1,6 @@
 package com.evil.inc.account.command.api.commands;
 
-import com.evil.inc.account.common.dto.AccountType;
+import com.evil.inc.account.common.domain.AccountType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class OpenAccountCommand extends Command {
-    private final String accountHolder;
-    private final AccountType accountType;
-    private final double openingBalance;
+    private String accountHolder;
+    private AccountType accountType;
+    private double openingBalance;
 }

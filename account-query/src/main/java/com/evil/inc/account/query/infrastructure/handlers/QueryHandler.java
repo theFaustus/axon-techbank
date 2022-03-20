@@ -1,14 +1,14 @@
 package com.evil.inc.account.query.infrastructure.handlers;
 
+import com.evil.inc.account.query.api.web.dto.AccountResponse;
 import com.evil.inc.account.query.api.queries.FindAccountByAccountHolderQuery;
 import com.evil.inc.account.query.api.queries.FindAccountByIdQuery;
 import com.evil.inc.account.query.api.queries.FindAllAccountsQuery;
-import com.evil.inc.account.query.domain.BankAccount;
 
 import java.util.List;
 
 public interface QueryHandler {
-    List<BankAccount> handle(FindAllAccountsQuery query);
-    List<BankAccount> handle(FindAccountByIdQuery query);
-    List<BankAccount> handle(FindAccountByAccountHolderQuery query);
+    List<AccountResponse> handle(FindAllAccountsQuery query);
+    AccountResponse handle(FindAccountByIdQuery query);
+    AccountResponse handle(FindAccountByAccountHolderQuery query);
 }

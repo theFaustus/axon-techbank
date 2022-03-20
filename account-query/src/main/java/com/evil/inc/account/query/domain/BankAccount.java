@@ -1,12 +1,11 @@
 package com.evil.inc.account.query.domain;
 
-import com.evil.inc.account.common.dto.AccountType;
+import com.evil.inc.account.common.domain.AccountType;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;

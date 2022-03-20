@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class CloseAccountCommand extends Command {
-    private final String comment;
+    private String comment;
 }

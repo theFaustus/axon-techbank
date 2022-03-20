@@ -1,6 +1,6 @@
 package com.evil.inc.account.common.events;
 
-import com.evil.inc.account.common.dto.AccountType;
+import com.evil.inc.account.common.domain.AccountType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
