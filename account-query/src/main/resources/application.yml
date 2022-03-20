@@ -11,19 +11,5 @@ spring:
     url: jdbc:postgresql://localhost:5433/axon-techbank-account-query
     username: postgres
     password: 123456
-  kafka:
-    listener:
-      ack-mode: manual_immediate
-    consumer:
-      bootstrap-servers: localhost:9092
-      group-id: tech-bank-acc-consumer
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring:
-          json:
-            trusted:
-              packages: '*'
 
 

@@ -1,4 +1,4 @@
-package com.evil.inc.cqrs.core.queries;
+package com.evil.inc.account.query.api.queries;
 
 import com.evil.inc.cqrs.core.domain.AggregateId;
 import com.evil.inc.cqrs.core.messages.Message;

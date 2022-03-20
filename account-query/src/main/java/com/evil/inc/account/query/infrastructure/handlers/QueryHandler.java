@@ -4,7 +4,6 @@ import com.evil.inc.account.query.api.queries.FindAccountByAccountHolderQuery;
 import com.evil.inc.account.query.api.queries.FindAccountByIdQuery;
 import com.evil.inc.account.query.api.queries.FindAllAccountsQuery;
 import com.evil.inc.account.query.domain.BankAccount;
-import com.evil.inc.cqrs.core.domain.BaseEntity;
 
 import java.util.List;
 

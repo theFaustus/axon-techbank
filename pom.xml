@@ -26,7 +26,6 @@
         <module>account-command</module>
         <module>account-query</module>
         <module>account-common</module>
-        <module>cqrs.core</module>
     </modules>
 
 </project>

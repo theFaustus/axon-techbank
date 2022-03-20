@@ -8,85 +8,114 @@ import com.evil.inc.account.common.events.AccountOpenedEvent;
 import com.evil.inc.account.common.events.AccountClosedEvent;
 import com.evil.inc.account.common.events.FundsDepositedEvent;
 import com.evil.inc.account.common.events.FundsWithdrawnEvent;
-import com.evil.inc.cqrs.core.domain.AggregateRoot;
+import lombok.AccessLevel;
+import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.modelling.command.AggregateIdentifier;
+import org.axonframework.modelling.command.AggregateLifecycle;
+import org.axonframework.spring.stereotype.Aggregate;
 
 import java.time.LocalDateTime;
 
-@NoArgsConstructor
-public class AccountAggregate extends AggregateRoot {
+@Data
+@Aggregate
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Account {
+    @AggregateIdentifier
+    private String id;
     private boolean active;
     private double balance;
 
-    public AccountAggregate(OpenAccountCommand command) {
-        applyNewChange(AccountOpenedEvent.builder()
-                .aggregateId(command.getAggregateId())
+    @CommandHandler
+    public Account(OpenAccountCommand command) {
+        final AccountOpenedEvent event = AccountOpenedEvent.builder()
+                .id(command.getId())
                 .accountHolder(command.getAccountHolder())
                 .creationDate(LocalDateTime.now())
                 .accountType(command.getAccountType())
                 .openingBalance(command.getOpeningBalance())
-                .build());
+                .build();
+
+        AggregateLifecycle.apply(event);
     }
 
     public double getBalance() {
         return balance;
     }
 
-    public void depositFunds(DepositFundsCommand command) {
+    public boolean isActive() {
+        return active;
+    }
+
+    @CommandHandler
+    public void on(DepositFundsCommand command) {
         if (!active) {
             throw new IllegalStateException("Funds cannot be deposited into a closed account!");
         }
         if (command.getAmount() <= 0) {
             throw new IllegalStateException("The deposit amount must be greater than 0!");
         }
-        applyNewChange(FundsDepositedEvent.builder()
-                .aggregateId(this.id)
+
+        final FundsDepositedEvent event = FundsDepositedEvent.builder()
+                .id(this.id)
                 .amount(command.getAmount())
-                .build());
+                .build();
+
+        AggregateLifecycle.apply(event);
     }
 
-    public void withdrawFunds(WithdrawFundsCommand command) {
+    @CommandHandler
+    public void on(WithdrawFundsCommand command) {
         if (!active) {
             throw new IllegalStateException("Funds cannot be withdrawn from a closed account!");
         }
         if (command.getAmount() > balance) {
             throw new IllegalStateException("Funds cannot be withdrawn. Insufficient funds on the balance!");
         }
-        applyNewChange(FundsWithdrawnEvent.builder()
-                .aggregateId(this.id)
+
+        final FundsWithdrawnEvent event = FundsWithdrawnEvent.builder()
+                .id(this.id)
                 .amount(command.getAmount())
-                .build());
+                .build();
+
+        AggregateLifecycle.apply(event);
     }
 
-    public void closeAccount(CloseAccountCommand command) {
+    @CommandHandler
+    public void on(CloseAccountCommand command) {
         if (!active) {
             throw new IllegalStateException("Cannot close an already closed account!");
         }
-        applyNewChange(AccountClosedEvent.builder().aggregateId(this.id).build());
+        final AccountClosedEvent event = AccountClosedEvent.builder().id(this.id).build();
+
+        AggregateLifecycle.apply(event);
     }
 
-    public void apply(AccountOpenedEvent event) {
-        this.id = event.getAggregateId();
+    @EventSourcingHandler
+    public void handle(AccountOpenedEvent event) {
+        this.id = event.getId();
         this.active = true;
         this.balance = event.getOpeningBalance();
     }
 
-    public void apply(FundsDepositedEvent event) {
-        this.id = event.getAggregateId();
+    @EventSourcingHandler
+    public void handle(FundsDepositedEvent event) {
+        this.id = event.getId();
         this.balance += event.getAmount();
     }
 
-    public void apply(FundsWithdrawnEvent event) {
-        this.id = event.getAggregateId();
+    @EventSourcingHandler
+    public void handle(FundsWithdrawnEvent event) {
+        this.id = event.getId();
         this.balance -= event.getAmount();
     }
 
-    public void apply(AccountClosedEvent event) {
-        this.id = event.getAggregateId();
+    @EventSourcingHandler
+    public void handle(AccountClosedEvent event) {
+        this.id = event.getId();
         this.active = false;
     }
 
-    public boolean isActive() {
-        return active;
-    }
 }

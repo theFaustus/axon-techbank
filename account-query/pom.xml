@@ -31,11 +31,6 @@
 		</dependency>
 		<dependency>
 			<groupId>com.evil.inc</groupId>
-			<artifactId>cqrs.core</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.evil.inc</groupId>
 			<artifactId>account-common</artifactId>
 			<version>1.0.0</version>
 		</dependency>

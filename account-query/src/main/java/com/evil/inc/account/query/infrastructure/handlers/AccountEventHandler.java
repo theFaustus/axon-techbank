@@ -7,20 +7,23 @@ import com.evil.inc.account.common.events.FundsWithdrawnEvent;
 import com.evil.inc.account.query.infrastructure.AccountRepository;
 import com.evil.inc.account.query.domain.BankAccount;
 import lombok.RequiredArgsConstructor;
+import org.axonframework.config.ProcessingGroup;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
+@ProcessingGroup("account-group")
 class AccountEventHandler implements EventHandler {
 
     private final AccountRepository accountRepository;
 
     @Override
+    @org.axonframework.eventhandling.EventHandler
     public void on(AccountOpenedEvent event) {
         final BankAccount bankAccount = BankAccount.builder()
-                .id(event.getAggregateId().getId())
+                .id(event.getId())
                 .accountHolder(event.getAccountHolder())
                 .accountType(event.getAccountType())
                 .balance(event.getOpeningBalance())
@@ -29,15 +32,17 @@ class AccountEventHandler implements EventHandler {
     }
 
     @Override
+    @org.axonframework.eventhandling.EventHandler
     public void on(FundsDepositedEvent event) {
-        accountRepository.findById(event.getAggregateId().getId())
+        accountRepository.findById(event.getId())
                 .ifPresent(bankAccount -> updateBalance(bankAccount, bankAccount.getBalance() + event.getAmount()));
     }
 
 
     @Override
+    @org.axonframework.eventhandling.EventHandler
     public void on(FundsWithdrawnEvent event) {
-        accountRepository.findById(event.getAggregateId().getId())
+        accountRepository.findById(event.getId())
                 .ifPresent(bankAccount -> updateBalance(bankAccount, bankAccount.getBalance() - event.getAmount()));
     }
 
@@ -47,7 +52,8 @@ class AccountEventHandler implements EventHandler {
     }
 
     @Override
+    @org.axonframework.eventhandling.EventHandler
     public void on(AccountClosedEvent event) {
-        accountRepository.deleteById(event.getAggregateId().getId());
+        accountRepository.deleteById(event.getId());
     }
 }

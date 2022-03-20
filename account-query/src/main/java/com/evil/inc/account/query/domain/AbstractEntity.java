@@ -1,15 +1,12 @@
 package com.evil.inc.account.query.domain;
 
-import com.evil.inc.cqrs.core.domain.BaseEntity;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
@@ -18,7 +15,7 @@ import java.util.Objects;
 @SuperBuilder
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AbstractEntity extends BaseEntity {
+public abstract class AbstractEntity {
     @Id
     protected String id;
 

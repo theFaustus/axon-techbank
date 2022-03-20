@@ -8,7 +8,6 @@
         <option value="$PROJECT_DIR$/techbank-account-command/pom.xml" />
         <option value="$PROJECT_DIR$/techbank-account-common/pom.xml" />
         <option value="$PROJECT_DIR$/techbank-account-query/pom.xml" />
-        <option value="$PROJECT_DIR$/cqrs.core/pom.xml" />
         <option value="$PROJECT_DIR$/account-command/pom.xml" />
       </list>
     </option>

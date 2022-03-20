@@ -5,20 +5,13 @@ import com.evil.inc.account.query.api.queries.FindAccountByIdQuery;
 import com.evil.inc.account.query.api.queries.FindAllAccountsQuery;
 import com.evil.inc.account.query.domain.BankAccount;
 import com.evil.inc.account.query.infrastructure.AccountRepository;
-import com.evil.inc.cqrs.core.domain.BaseEntity;
-import com.evil.inc.cqrs.core.infrastructure.QueryDispatcher;
-import com.evil.inc.cqrs.core.queries.Query;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
